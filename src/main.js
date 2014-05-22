@@ -4,29 +4,33 @@ define(function(require, exports, module) {
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var ImageSurface = require('famous/surfaces/ImageSurface');
+    var Surface = require('famous/core/Surface');
+
 
     // create the main context
     var mainContext = Engine.createContext();
 
     // your app here
-    var logo = new ImageSurface({
-        size: [20, 20],
-        content: 'http://code.famo.us/assets/famous_logo.svg'//,
-        // classes: ['double-sided']
+    var surface = new Surface({
+      size: [20, 20],
+      content: ':(',
+      properties: {
+        color: 'white',
+        textAlign: 'center',
+        backgroundColor: '#FA5C4F'
+      }
     });
 
     var initialTime = Date.now();
-    var iconModifier = new Modifier({
+
+    var surfaceModifier = new Modifier({
         origin: [0, 0],
-        // transform : function(){
-        // return Transform.rotateY(.002 * (Date.now() - initialTime));
-        // }
-        transform: move
+        transform : move
     });
 
     var screenSize = mainContext.getSize();
     // var screenSize = [200, 200];
-    console.log('x=%d y=%d', screenSize[0], screenSize[1]);
+    // console.log('x=%d y=%d', screenSize[0], screenSize[1]);
 
     function move() {
         var speed = 0.05;
@@ -37,5 +41,14 @@ define(function(require, exports, module) {
         return Transform.translate(posX, posY, 0);
     }
 
-    mainContext.add(iconModifier).add(logo);
+    // mainContext.add(logoModifier).add(logo);
+    mainContext.add(surfaceModifier).add(surface);
+
+    surface.on('click', function(){
+        console.log('clicked');
+        surface.setProperties({
+          backgroundColor: '#6F6'
+        });
+        surface.setContent(':)');
+    });
 });
