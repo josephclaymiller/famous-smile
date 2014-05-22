@@ -12,13 +12,14 @@ define(function(require, exports, module) {
 
     // your app here
     var surface = new Surface({
-      size: [20, 20],
+      size: [40, 40],
       content: ':(',
       properties: {
         color: 'white',
-        textAlign: 'center',
-        backgroundColor: '#FA5C4F'
-      }
+        textAlign: 'center'//,
+        // backgroundColor: '#FA5C4F'
+      },
+      classes: ['face','sad-face']
     });
 
     var initialTime = Date.now();
@@ -46,9 +47,7 @@ define(function(require, exports, module) {
 
     surface.on('click', function(){
         console.log('clicked');
-        surface.setProperties({
-          backgroundColor: '#6F6'
-        });
+        surface.setClasses(['face','happy-face']);
         surface.setContent(':)');
     });
 });
